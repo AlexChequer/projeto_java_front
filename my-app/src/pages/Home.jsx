@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       {/* Carousel */}
-      <Box sx={{ mb: 6 }}>
+      <Box sx={{ mb: 6 , mt:6}}>
         <Carousel
           showArrows
           autoPlay
@@ -58,7 +58,7 @@ export default function Home() {
       </Typography>
       <Grid container spacing={4}>
         {products.map((product) => (
-          <Grid key={product.id}>
+          <Grid key={product.id} size={100}>
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <CardMedia
                 component="img"
@@ -74,8 +74,8 @@ export default function Home() {
                   {product.price}
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Button size="small" variant="contained" onClick={() => {navigate("/asd")}}>
+              <CardActions sx={{justifyContent: "center"}}>
+                <Button size="small" variant="contained" onClick={() => {navigate("/asd")}} sx={{width:"200px"}}>
                   Buy Now
                 </Button>
               </CardActions>

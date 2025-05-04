@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router-dom"
+import Text from "../components/Text"
 
 export default function Profile() {
-
-    const navigate = useNavigate()
     
     return (
         <>
-        
+            <Text text={'Meus jogos'}/>
+            <b><p>fazer um fetch e mostrar os jogos</p></b>
         </>
     )
 }
