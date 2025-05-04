@@ -11,16 +11,15 @@ import {
   Button
 } from '@mui/material';
 import { Carousel } from 'react-responsive-carousel';
+import { useNavigate } from "react-router-dom"
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-// Carousel items
 const carouselItems = [
   { img: 'https://source.unsplash.com/random/800x400?ecommerce,1', label: 'New Arrivals' },
   { img: 'https://source.unsplash.com/random/800x400?ecommerce,2', label: 'Summer Sale' },
   { img: 'https://source.unsplash.com/random/800x400?ecommerce,3', label: 'Trending Now' }
 ];
 
-// Sample featured products
 const products = [
   { id: 1, name: 'Product 1', image: 'https://source.unsplash.com/random/240x240?product,1', price: '$29.99' },
   { id: 2, name: 'Product 2', image: 'https://source.unsplash.com/random/240x240?product,2', price: '$49.99' },
@@ -29,9 +28,12 @@ const products = [
 ];
 
 export default function Home() {
+
+  const navigate = useNavigate()
+
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      {/* Carousel Section */}
+      {/* Carousel */}
       <Box sx={{ mb: 6 }}>
         <Carousel
           showArrows
@@ -50,13 +52,13 @@ export default function Home() {
         </Carousel>
       </Box>
 
-      {/* Featured Products */}
+      {/* Products */}
       <Typography variant="h4" component="h2" gutterBottom>
         Featured Products
       </Typography>
       <Grid container spacing={4}>
         {products.map((product) => (
-          <Grid item xs={12} sm={6} md={3} key={product.id}>
+          <Grid key={product.id}>
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <CardMedia
                 component="img"
@@ -73,7 +75,7 @@ export default function Home() {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" variant="contained">
+                <Button size="small" variant="contained" onClick={() => {navigate("/asd")}}>
                   Buy Now
                 </Button>
               </CardActions>
