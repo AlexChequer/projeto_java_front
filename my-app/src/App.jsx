@@ -14,13 +14,17 @@ import Admin from './pages/Admin.jsx'
 function App() {
   const navigate = useNavigate()
   const [cart, setCart] = useState([])
+  function addToCart(element) {
+    setCart([...cart, element])
+  }
+  console.log(cart)
   return (
     <>
       
       <Routes>
-        <Route path='/' element={<Home></Home>}/>
-        <Route path='/games' element={<Games></Games>}/>
-        <Route path='/cart' element={<Cart></Cart>}/>
+        <Route path='/' element={<Home addToCart={addToCart}></Home>}/>
+        <Route path='/games' element={<Games addToCart={addToCart}></Games>}/>
+        <Route path='/cart' element={<Cart cart={cart}></Cart>}/>
         <Route path='/profile' element={<Profile></Profile>}/>
         <Route path='/login' element={<Login></Login>}/>
         <Route path='/register' element={<Register></Register>}/>

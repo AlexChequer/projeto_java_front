@@ -27,13 +27,12 @@ const products = [
   { id: 4, name: 'Product 4', image: 'https://source.unsplash.com/random/240x240?product,4', price: '$59.99' }
 ];
 
-export default function Home() {
+export default function Home({addToCart}) {
 
   const navigate = useNavigate()
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      {/* Carousel */}
       <Box sx={{ mb: 6 , mt:6}}>
         <Carousel
           showArrows
@@ -52,7 +51,6 @@ export default function Home() {
         </Carousel>
       </Box>
 
-      {/* Products */}
       <Typography variant="h4" component="h2" gutterBottom>
         Featured Products
       </Typography>
@@ -75,7 +73,7 @@ export default function Home() {
                 </Typography>
               </CardContent>
               <CardActions sx={{justifyContent: "center"}}>
-                <Button size="small" variant="contained" onClick={() => {navigate("/asd")}} sx={{width:"200px"}}>
+                <Button size="small" variant="contained" onClick={() => {addToCart({"id":product.id,"name":product.name}); navigate('/cart'); console.log(product)}} sx={{width:"200px"}}>
                   Buy Now
                 </Button>
               </CardActions>
