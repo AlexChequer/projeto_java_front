@@ -15,8 +15,8 @@ import { useNavigate } from "react-router-dom"
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const carouselItems = [
-  { img: 'https://source.unsplash.com/random/800x400?ecommerce,1', label: 'New Arrivals' },
-  { img: 'https://source.unsplash.com/random/800x400?ecommerce,2', label: 'Summer Sale' },
+  { img: 'gta.png', label: 'Coming Up - GTA 6' },
+  { img: 'bf1.png', label: 'Battlefield 1' },
   { img: 'https://source.unsplash.com/random/800x400?ecommerce,3', label: 'Trending Now' }
 ];
 
@@ -45,7 +45,7 @@ export default function Home() {
         >
           {carouselItems.map((item) => (
             <div key={item.label}>
-              <img src={item.img} alt={item.label} style={{ borderRadius: '8px' }} />
+              <img src={item.img} alt={item.label} style={{ borderRadius: '8px', objectFit:"cover", height:"400px" }}/>
               <p className="legend">{item.label}</p>
             </div>
           ))}
