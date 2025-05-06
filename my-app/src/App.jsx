@@ -8,6 +8,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { AppBar, Button, IconButton, Toolbar } from '@mui/material'
 import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
 
 function App() {
   const navigate = useNavigate()
@@ -20,8 +21,10 @@ function App() {
         <Route path='/cart' element={<Cart></Cart>}/>
         <Route path='/profile' element={<Profile></Profile>}/>
         <Route path='/login' element={<Login></Login>}/>
+        <Route path='/register' element={<Register></Register>}/>
       </Routes>
-
+      {window.location.pathname == "/register" || window.location.pathname == "/login" ? null :
+      
       <AppBar sx={{ backgroundColor: '#202020' }}>
         <Toolbar>
           <Button color="inherit" onClick={() => navigate("/")}>
@@ -45,6 +48,7 @@ function App() {
           </IconButton>
         </Toolbar>
       </AppBar>
+      }
 
     </>
   )

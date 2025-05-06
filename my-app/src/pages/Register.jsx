@@ -2,13 +2,13 @@ import { Button, Grid, TextField } from "@mui/material"
 import { use, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-export default function Login() {
+export default function Register() {
     const [user,setUser] = useState("")
     const [password,setPassword] = useState("")
     const navigate = useNavigate()
    
-    function login() {
-        const login = {
+    function registerUser() {
+        const register = {
             "user": user,
             "password": password
         }
@@ -23,10 +23,9 @@ export default function Login() {
                 </Grid>
                 <Grid size={12}>
                     <TextField variant="filled" label="Password" onChange={(e)=>{setPassword(e.target.value)}}/>
-                    <p style={{color:"blue", cursor: "pointer"}} onClick={() => navigate("/register")}>Registrar-se agora</p>
                 </Grid>
                 <Grid size={12}>
-                    <Button variant="outlined" onClick={login}>Login</Button>
+                    <Button variant="outlined" onClick={registerUser}>Register</Button>
                 </Grid>
             </Grid>
         </>
