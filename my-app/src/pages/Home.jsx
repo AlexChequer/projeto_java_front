@@ -24,7 +24,6 @@ export default function Home() {
             try {
                 setLoading(true);
                 const allGames = await itemService.getAllItems();
-                // Get the first 3 games as featured
                 setFeaturedGames(Array.isArray(allGames) ? allGames.slice(0, 3) : []);
             } catch (error) {
                 console.error('Error fetching featured games:', error);
@@ -35,7 +34,6 @@ export default function Home() {
 
         fetchFeaturedGames();
         
-        // Fetch cart count if user is logged in as client
         if (isClient && clientId) {
             fetchCartCount();
         }
@@ -57,9 +55,8 @@ export default function Home() {
             paddingTop: 8, 
             minHeight: '100vh',
             backgroundImage: 'linear-gradient(to bottom, #1a1a1a, #303030)',
-            position: 'relative'  // Para posicionamento absoluto do botão do carrinho
+            position: 'relative'  
         }}>
-            {/* Botão de Carrinho Flutuante (só aparece se o cliente estiver logado) */}
             {isClient && (
                 <Fab 
                     color="primary" 
@@ -67,7 +64,7 @@ export default function Home() {
                     onClick={() => navigate('/cart')}
                     sx={{ 
                         position: 'fixed', 
-                        bottom: 80, // Posicionado acima da barra de navegação inferior
+                        bottom: 80, 
                         right: 20,
                         zIndex: 1000
                     }}
@@ -78,7 +75,6 @@ export default function Home() {
                 </Fab>
             )}
 
-            {/* Hero Section */}
             <Box 
                 sx={{ 
                     bgcolor: 'background.paper',
@@ -128,7 +124,6 @@ export default function Home() {
                 </Container>
             </Box>
 
-            {/* Featured Games Section */}
             <Container sx={{ py: 8 }} maxWidth="lg">
                 <Typography variant="h4" component="h2" sx={{ mb: 4, color: 'white' }}>
                     Featured Games

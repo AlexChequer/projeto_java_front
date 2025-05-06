@@ -24,7 +24,6 @@ export default function Games() {
   const itemsPerPage = 10;  
   const clientId     = localStorage.getItem("clientId");   
 
-  // fetch inicial dos itens
   useEffect(() => {
     fetch('http://localhost:8080/item')
       .then(res => res.json())
@@ -35,13 +34,11 @@ export default function Games() {
       .finally(() => setLoading(false));
   }, []);
 
-  // filtra antes de paginar
   const filtered = items.filter(game =>
     game.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const pageCount = Math.ceil(filtered.length / itemsPerPage);
 
-  // reset página ao mudar busca
   useEffect(() => {
     setPage(1);
   }, [searchTerm]);
@@ -70,7 +67,7 @@ export default function Games() {
       alert(`${game.name} adicionado ao carrinho!\nTotal agora: R$ ${body.total.toFixed(2)}`);
     } catch (e) {
       console.error(e);
-      alert(`Erro ao adicionar ${game.name}: ${e.message}`);
+      alert(`Erro ao adicionar ${game.name}: ${e}`);
     } finally {
       setAddingId(null);
     }
@@ -86,7 +83,6 @@ export default function Games() {
 
   return (
     <Box p={2} maxWidth="lg" mx="auto">
-      {/* barra de busca */}
       <TextField
         label="Buscar por nome"
         variant="outlined"
@@ -105,7 +101,6 @@ export default function Games() {
         }}
       />
 
-      {/* grid 5×2 */}
       <Grid container spacing={4} columns={5}>
         {paginated.map(game => (
           <Grid item xs={1} key={game.id}>
@@ -142,7 +137,6 @@ export default function Games() {
         ))}
       </Grid>
 
-      {/* paginação */}
       {pageCount > 1 && (
         <Box display="flex" justifyContent="center" mt={4}>
           <Pagination

@@ -23,12 +23,10 @@ export default function Profile() {
     const clientId = localStorage.getItem('clientId');
     
     useEffect(() => {
-        // Check for successful order from location state
         if (location.state?.orderSuccess) {
             setOrderSuccess(true);
         }
         
-        // Redirect to login if not logged in
         if (!clientId) {
             navigate('/login', { state: { redirect: '/profile' } });
             return;
@@ -41,11 +39,9 @@ export default function Profile() {
         try {
             setLoading(true);
             
-            // Fetch client data
             const clientData = await clientService.getClientById(clientId);
             setClient(clientData);
             
-            // Fetch order history
             const orderData = await orderService.getOrdersByClientId(clientId);
             setOrders(orderData);
         } catch (err) {
@@ -61,7 +57,6 @@ export default function Profile() {
     };
     
     const handleLogout = () => {
-        // Clear user session data
         localStorage.removeItem('clientId');
         localStorage.removeItem('userName');
         localStorage.removeItem('userRole');
@@ -124,7 +119,6 @@ export default function Profile() {
                         </Tabs>
                     </Box>
                     
-                    {/* Account Details Tab */}
                     <Box role="tabpanel" hidden={tabValue !== 0} sx={{ pt: 3 }}>
                         {tabValue === 0 && (
                             <Grid container spacing={2}>
@@ -164,7 +158,6 @@ export default function Profile() {
                         )}
                     </Box>
                     
-                    {/* Order History Tab */}
                     <Box role="tabpanel" hidden={tabValue !== 1} sx={{ pt: 3 }}>
                         {tabValue === 1 && (
                             <>
@@ -194,9 +187,6 @@ export default function Profile() {
                                                     <CardContent>
                                                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
                                                             <Typography variant="h6">Order #{order.id}</Typography>
-                                                            <Typography variant="body2" color="primary">
-                                                                Status: {order.status || 'Processing'}
-                                                            </Typography>
                                                         </Box>
                                                         
                                                         <Divider sx={{ mb: 2 }} />

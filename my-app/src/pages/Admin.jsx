@@ -24,20 +24,17 @@ export default function Admin() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     
-    // Data states
     const [items, setItems] = useState([]);
     const [orders, setOrders] = useState([]);
     const [clients, setClients] = useState([]);
     const [categories, setCategories] = useState([]);
     const [admins, setAdmins] = useState([]);
     
-    // Dialog states
     const [itemDialog, setItemDialog] = useState(false);
     const [orderStatusDialog, setOrderStatusDialog] = useState(false);
     const [categoryDialog, setCategoryDialog] = useState(false);
     const [adminDialog, setAdminDialog] = useState(false);
     
-    // Form states
     const [itemForm, setItemForm] = useState({
         id: null,
         name: "",
@@ -62,10 +59,8 @@ export default function Admin() {
         password: ""
     });
     
-    // Current user
     const [currentUser, setCurrentUser] = useState(null);
     
-    // Check authentication - only ADMIN role should access this page
     useEffect(() => {
         const isAuthed = localStorage.getItem('isAuthenticated') === 'true';
         const userType = localStorage.getItem('userType');
@@ -75,7 +70,6 @@ export default function Admin() {
             return;
         }
         
-        // Set current user info
         setCurrentUser({
             id: localStorage.getItem('adminId'),
             name: localStorage.getItem('userName'),
@@ -90,7 +84,6 @@ export default function Admin() {
             setLoading(true);
             setError("");
             
-            // Fetch all necessary data in parallel
             const [itemsData, ordersData, clientsData, categoriesData, adminsData] = await Promise.all([
                 itemService.getAllItems(),
                 orderService.getAllOrders(),
@@ -99,7 +92,6 @@ export default function Admin() {
                 adminService.getAllAdmins()
             ]);
             
-            // Garantir que todos os dados são arrays, mesmo que vazios
             setItems(Array.isArray(itemsData) ? itemsData : []);
             setOrders(Array.isArray(ordersData) ? ordersData : []);
             setClients(Array.isArray(clientsData) ? clientsData : []);
@@ -117,7 +109,6 @@ export default function Admin() {
             console.error('Error fetching admin data:', err);
             setError('Failed to load administrative data. Please try again later.');
             
-            // Inicializa todos os estados com arrays vazios em caso de erro
             setItems([]);
             setOrders([]);
             setClients([]);
@@ -137,7 +128,6 @@ export default function Admin() {
         navigate('/login');
     };
     
-    // Item Management Functions
     const openItemDialog = (item = null) => {
         if (item) {
             setItemForm({
@@ -181,10 +171,8 @@ export default function Admin() {
             };
             
             if (itemForm.id) {
-                // Update existing item
                 await itemService.updateItem(itemForm.id, formData);
             } else {
-                // Create new item
                 await itemService.createItem(formData);
             }
             
@@ -208,7 +196,6 @@ export default function Admin() {
         }
     };
     
-    // Category Management Functions
     const openCategoryDialog = (category = null) => {
         if (category) {
             setCategoryForm({
@@ -235,10 +222,8 @@ export default function Admin() {
     const saveCategory = async () => {
         try {
             if (categoryForm.id) {
-                // Update existing category
                 await categoryService.updateCategory(categoryForm.id, categoryForm);
             } else {
-                // Create new category
                 await categoryService.createCategory(categoryForm);
             }
             
@@ -262,7 +247,6 @@ export default function Admin() {
         }
     };
     
-    // Order Management Functions
     const openOrderStatusDialog = (order) => {
         setOrderStatusForm({
             id: order.id,
@@ -289,14 +273,13 @@ export default function Admin() {
         }
     };
     
-    // Admin Management Functions
     const openAdminDialog = (admin = null) => {
         if (admin) {
             setAdminForm({
                 id: admin.id,
                 name: admin.name,
                 email: admin.email,
-                password: "" // Don't populate password for security
+                password: "" 
             });
         } else {
             setAdminForm({
@@ -322,14 +305,12 @@ export default function Admin() {
             const formData = { ...adminForm };
             
             if (adminForm.id) {
-                // Update existing admin
-                // If password is empty, don't send it
+                
                 if (!formData.password) {
                     delete formData.password;
                 }
                 await adminService.updateAdmin(adminForm.id, formData);
             } else {
-                // Create new admin
                 await adminService.createAdmin(formData);
             }
             
@@ -342,7 +323,6 @@ export default function Admin() {
     };
     
     const deleteAdmin = async (id) => {
-        // Prevent deleting your own account
         const currentUserId = currentUser?.id;
         if (currentUserId === id) {
             alert("You cannot delete your own admin account.");
@@ -370,7 +350,6 @@ export default function Admin() {
     
     return (
         <>
-            {/* App Bar with logout button */}
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

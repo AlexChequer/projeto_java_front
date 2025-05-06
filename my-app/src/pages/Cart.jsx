@@ -19,7 +19,6 @@ export default function Cart() {
     const clientId = localStorage.getItem('clientId');
     
     useEffect(() => {
-        // Redirect to login if not logged in
         if (!clientId) {
             navigate('/login', { state: { redirect: '/cart' } });
             return;
@@ -46,7 +45,7 @@ export default function Cart() {
             await cartService.updateItemInCart(clientId, cartItem.item.id, { 
                 quantity: cartItem.quantity + 1 
             });
-            fetchCart(); // Refresh cart after update
+            fetchCart(); 
         } catch (err) {
             console.error('Error updating item quantity:', err);
             alert('Failed to update quantity. Please try again.');
@@ -63,7 +62,7 @@ export default function Cart() {
             await cartService.updateItemInCart(clientId, cartItem.item.id, { 
                 quantity: cartItem.quantity - 1 
             });
-            fetchCart(); // Refresh cart after update
+            fetchCart(); 
         } catch (err) {
             console.error('Error updating item quantity:', err);
             alert('Failed to update quantity. Please try again.');
@@ -73,7 +72,7 @@ export default function Cart() {
     const handleRemoveItem = async (itemId) => {
         try {
             await cartService.removeItemFromCart(clientId, itemId);
-            fetchCart(); // Refresh cart after removing item
+            fetchCart(); 
         } catch (err) {
             console.error('Error removing item from cart:', err);
             alert('Failed to remove item. Please try again.');
@@ -85,7 +84,6 @@ export default function Cart() {
             setLoading(true);
             const order = await orderService.checkout(clientId);
             
-            // Navigate to a thank you or order confirmation page
             navigate('/profile', { state: { orderSuccess: true, order } });
         } catch (err) {
             console.error('Error during checkout:', err);
@@ -140,7 +138,7 @@ export default function Cart() {
                                     <CardMedia
                                         component="img"
                                         sx={{ width: 150 }}
-                                        image={cartItem.item.imageUrl || '/public/gta.png'}
+                                        image={cartItem.item.imageUrl || '/gta.png'}
                                         alt={cartItem.item.name}
                                     />
                                     <CardContent sx={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column' }}>

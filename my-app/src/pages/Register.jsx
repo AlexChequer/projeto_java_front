@@ -29,7 +29,6 @@ export default function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
         
-        // Validation
         if (formData.password !== formData.confirmPassword) {
             setError("Passwords do not match");
             return;
@@ -39,22 +38,18 @@ export default function Register() {
         setError("");
         
         try {
-            // Create user registration data
             const userData = {
                 name: formData.name,
                 email: formData.email,
                 password: formData.password
             };
             
-            // Register new user
             const newUser = await clientService.registerClient(userData);
             
-            // Store user info in localStorage
             localStorage.setItem('clientId', newUser.id);
             localStorage.setItem('userName', newUser.name);
             localStorage.setItem('userRole', newUser.role || 'CLIENT');
             
-            // Redirect to home page
             navigate('/');
         } catch (err) {
             console.error('Registration error:', err);

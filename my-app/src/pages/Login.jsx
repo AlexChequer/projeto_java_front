@@ -23,15 +23,12 @@ export default function Login() {
         setError("");
 
         try {
-            // Use the simplified login function
             const isAuthenticated = await login(email, password, userType);
             
             if (isAuthenticated) {
-                // Redirect to appropriate page based on user type
                 if (userType === "ADMIN") {
                     navigate('/admin');
                 } else {
-                    // Redirect to previous page or home
                     const redirect = location.state?.redirect || '/';
                     navigate(redirect);
                 }
